@@ -47,7 +47,7 @@
     </div>
 
     <!-- Load the extensions file and initialize Voiceflow -->
-    <script type="text/javascript">
+    <script type="module">
         import { ImageUploadExtension, 
                  FeedbackExtension,
                  FormExtension,
