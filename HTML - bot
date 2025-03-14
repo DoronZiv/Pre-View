@@ -3,73 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>העוזר הוירטואלי </title>
+    <title>Voiceflow Chatbot</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #f0f2f5;
-        }
-        .container {
-            text-align: center;
-            max-width: 800px;
-        }
-        h1 {
-            color: #333;
-        }
-        .user-form {
-            margin-top: 20px;
-        }
-        input, button {
-            padding: 10px;
-            margin: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            background-color: #007BFF;
-            color: white;
-            cursor: pointer;
-        }
-    </style>
-    <script defer src="https://cdn.voiceflow.com/widget/bundle.mjs"></script>
+    <script src="https://cdn.voiceflow.com/voiceflow-sdk.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>העוזר הוירטואלי </h1>
-        <p>לחצו על הכפתור בצד ימין למטה כדי להתחיל שיחה!</p>
-    </div>
+    <!-- Main content -->
+    <h1>Voiceflow Image Upload Test</h1>
+    <p>Interact with the chat widget to test image uploading.</p>
 
-    <!-- Initialize Voiceflow -->
+    <!-- Load the extensions file first -->
     <script type="module">
-        window.addEventListener("DOMContentLoaded", function () {
-            window.voiceflow.chat.load({
-                verify: { projectID: '6775a419af88ef4857055875' },
-                url: 'https://general-runtime.voiceflow.com',
-                versionID: 'production',
-                voice: {
-                    url: "https://runtime-api.voiceflow.com"
-                },
-                assistant: {
-                    extensions: [] // If you have extensions, add them here
-                },
-                autoOpen: true
-            });
+        import { ImageUploadExtension } from './extensions.js';
 
-            // Open chat after a short delay
-            setTimeout(() => {
-                if (window.voiceflow && window.voiceflow.chat) {
-                    window.voiceflow.chat.open();
-                }
-            }, 1000);
-        });
+        (function(d, t) {
+            var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            v.onload = function() {
+                window.voiceflow.chat.load({
+                    verify: { projectID: '6775a419af88ef4857055875' },
+                    url: 'https://general-runtime.voiceflow.com',
+                    versionID: 'production',
+                    voice: {
+           	      url: "https://runtime-api.voiceflow.com"
+          	    },
+		    assistant: {
+                      extensions: [
+                        ImageUploadExtension,
+                      ],
+                    },
+                    autoOpen: true
+                });
+                
+                // Add a small delay before trying to open the chat
+                setTimeout(() => {
+                    if (window.voiceflow && window.voiceflow.chat) {
+                        window.voiceflow.chat.open();
+                    }
+                }, 1000);
+            };
+            v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; 
+            v.type = "text/javascript"; 
+            s.parentNode.insertBefore(v, s);
+        })(document, 'script');
     </script>
 </body>
-</html>
-
+</html> 
