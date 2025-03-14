@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>העוזר הוירטואלי של אוזי</title>
+    <title>העוזר הוירטואלי </title>
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
@@ -38,51 +38,38 @@
             cursor: pointer;
         }
     </style>
-    <script defer src="https://cdn.voiceflow.com/voiceflow-sdk.min.js"></script>
+    <script defer src="https://cdn.voiceflow.com/widget/bundle.mjs"></script>
 </head>
 <body>
     <div class="container">
-        <h1>העוזר הוירטואלי של אוזי</h1>
+        <h1>העוזר הוירטואלי </h1>
         <p>לחצו על הכפתור בצד ימין למטה כדי להתחיל שיחה!</p>
     </div>
 
-    <!-- Load the extensions file and initialize Voiceflow -->
+    <!-- Initialize Voiceflow -->
     <script type="module">
-        import { ImageUploadExtension, 
-                 FeedbackExtension,
-                 FormExtension,
-                 ConfettiExtension } from './extensions.js';
+        window.addEventListener("DOMContentLoaded", function () {
+            window.voiceflow.chat.load({
+                verify: { projectID: '6775a419af88ef4857055875' },
+                url: 'https://general-runtime.voiceflow.com',
+                versionID: 'production',
+                voice: {
+                    url: "https://runtime-api.voiceflow.com"
+                },
+                assistant: {
+                    extensions: [] // If you have extensions, add them here
+                },
+                autoOpen: true
+            });
 
-                       // Initialize Voiceflow Chatbot
-                (function(d, t) {
-                    var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-                    v.onload = function() {
-                        window.voiceflow.chat.load({
-                            verify: { projectID: '6775a419af88ef4857055875' },
-                            url: 'https://general-runtime.voiceflow.com',
-                            versionID: 'production',
-                            voice: {
-                              url: "https://runtime-api.voiceflow.com"
-                            },
-                            assistant: {
-                                extensions: [ImageUploadExtension, 
-                                            FeedbackExtension, 
-                                            FormExtension,
-                                            ConfettiExtension],  
-                            },
-                            // Automatically open the chatbot when it loads
-                            autoOpen: true   
-                        });
-                          
-                        // Add a small delay before trying to open the chat
-                        setTimeout(() => {
-                            if (window.voiceflow && window.voiceflow.chat) {
-                                window.voiceflow.chat.open();
-                            }
-                        }, 1000);
-                    };
-                    v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
-                })(document, 'script');
+            // Open chat after a short delay
+            setTimeout(() => {
+                if (window.voiceflow && window.voiceflow.chat) {
+                    window.voiceflow.chat.open();
+                }
+            }, 1000);
+        });
     </script>
 </body>
 </html>
+
